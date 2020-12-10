@@ -1,13 +1,13 @@
 <p id="notice">
   <%= notice %>
 </p>
-
+<body>
 <header>
   <h1>Books</h1>
 </header>
 
 <table>
-  <thread>
+  <thread class="heading">
     <tr>
       <th>Title</th>
       <th>Body</th>
@@ -28,10 +28,19 @@
 </table>
 
 <h2>New book</h2>
-<%= form_with model:@book, url:'/books', local:true do |f|%>
-<h4>Title</h4>
-<%= f.text_field :title %>
-<h4>Body</h4>
-<%= f.text_area :body %>
-<h4><%= f.submit'Create Book' %></h4>
+<%= form_with model:@book, url:books_path, local:true do |f|%>
+
+<% if @book.errors.any? %>
+ <%= @book.errors.count %>errors prohibited this book from being saved<br>
+ <% @book.errors.full_messages.each do |msg| %>
+  <%= msg %><br>
+ <% end %>
 <% end %>
+
+<p>Title</p>
+<%= f.text_field :title %>
+<p>Body</p>
+<%= f.text_area :body %>
+<p><%= f.submit'Create Book' %></p>
+<% end %>
+</body>
